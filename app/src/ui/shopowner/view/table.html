@@ -1,0 +1,67 @@
+<form id="area_form" action="" method="get">
+<div ng-repeat="area in areas" ng-controller="tableController">
+<div class="box-header well" data-original-title="" >
+    <h2><i class="glyphicon glyphicon-user"></i> {{area.area_name}}</h2>
+
+    <div class="box-icon">
+        <button class="btn btn-success btn-xs" ng-if="$first" ng-click="addArea();">新增分区</button>
+        <button class="btn btn-primary btn-xs">新增桌台</button>
+        <button class="btn btn-danger btn-xs" ng-click="deleteArea(area.area_id);">删除分区</button>
+
+    </div>
+
+</div>
+
+
+<div class="row" ng-repeat="table in area.table_list">
+    <div class="box col-md-3">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2><i class="glyphicon glyphicon-th"></i> {{table.table_name}}</h2>
+
+                <div class="box-icon">
+                    <a href="#" class="btn btn-close btn-round btn-default"><i
+                            class="glyphicon glyphicon-remove"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="row">
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                    <div class="col-md-4"><h6>column 4</h6></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!--/row-->
+</div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <div id="alert_title"><h3></h3></div>
+                </div>
+                <div class="modal-body">
+                    <p id="alert_content"></p>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:void(0);" class="btn btn-default" data-dismiss="modal">OK</a>
+                    <!--<a href="javascript:void(0);" class="btn btn-primary" data-dismiss="modal">Save changes</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

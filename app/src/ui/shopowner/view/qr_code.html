@@ -1,0 +1,27 @@
+
+
+<!--body wrapper start-->
+<div class="">
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    桌台二维码
+                </header>
+                <div class="panel-body">
+                    <div id="gallery" class="media-gal" >
+                        <div ng-repeat="area in areas">
+                            <div class="images item "  ng-repeat="table in area.table_list">
+                                <a href="javascript:void(0);" data-toggle="modal">
+                                    <img src="{{img_url}}/heygay/shop_{{table.shop_id}}/qrcode_{{table.table_id}}.jpg" alt="" />
+                                </a>
+                                <p>{{area.area_name}}--{{table.table_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!--body wrapper end-->

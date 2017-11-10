@@ -1,0 +1,54 @@
+<div>
+    <!--头部-->
+    <header>
+        <div class="header">
+            <h1>呼叫服务</h1>
+            <a href="#/index" class="return"><i></i></a>
+        </div>
+    </header>
+
+
+    <article class="main-container" style="margin-top:50px;">
+
+        <!--订单编号
+        <div class="memberDetailheader line" style="margin-top: 0px;margin-bottom: 0px;">
+            <p>呼叫服务员</p>
+
+        </div>
+        -->
+        <div class="DetailContentBox">
+
+            <!--标题-->
+            <div class="D-head line" style="margin-bottom: 0px;">
+                <h2>请填需要的服务信息</h2>
+                <font>提交后，服务员会收到通知，请稍后</font>
+                <br>
+            </div>
+            <div class="D-pro-content line" style="margin-top: 0px;">
+                <div class="order-Remark line">
+                    <textarea class="line-ora" id="service_content" maxlength="50" ng-model="shop_owner_phone" placeholder="请输入服务内容" style="width:300px;height:100px;">
+
+                    </textarea>
+                </div>
+                <div style="float: left;padding:5px 8px;font-size:11pt;margin-left:10px;background-color:#eeeeee;margin-top:8px;"   ng-model="tips1" ng-click="tips('加水');">加水</div>
+                <div style="float: left;padding:5px 8px;font-size:11pt;margin-left:10px;background-color:#eeeeee;margin-top:8px;"   ng-model="tips2" ng-click="tips('加餐具');">加餐具</div>
+                <div style="float: left;padding:5px 8px;font-size:11pt;margin-left:10px;background-color:#eeeeee;margin-top:8px;"   ng-model="tips3" ng-click="tips('没纸巾了');">加纸巾</div>
+                <div style="float: left;padding:5px 8px;font-size:11pt;margin-left:10px;background-color:#eeeeee;margin-top:8px;"   ng-model="tips4" ng-click="tips('叫服务员');">叫服务员</div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+
+        </div>
+
+
+
+        <div class="memberDetailFooter line">
+            <button ng-click="submit_service();">提交</button>
+        </div>
+
+    </article>
+</div>

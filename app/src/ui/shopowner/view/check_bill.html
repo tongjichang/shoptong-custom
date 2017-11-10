@@ -1,0 +1,102 @@
+<div class="modal-content" style="width:100%;" style="position: fixed;">
+    <div class="modal-header">
+        <h3 class="modal-title" id="check_title">{{order.area.area_name}}--{{order.table.table_name}}</h3>
+    </div>
+
+    <div class="modal-body row" style="padding:0px 20px;">
+        <section class="panel">
+            <!--
+            <header class="panel-heading">
+                <h4>菜品列表</h4>
+            </header>
+            -->
+            <div class="panel-body">
+                <table class="table  table-hover general-table" style="overflow-y:scroll;">
+                    <thead>
+                    <tr align="center">
+                        <th width="15%">编号</th>
+                        <th width="25%">名称</th>
+                        <th width="20%">单价</th>
+                        <th width="15%">数量</th>
+                        <th width="25%">总价</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  ng-repeat="goods in order.cart.goods_set">
+                        <td>{{$index+1}}</td>
+                        <td>{{goods.good_name}}</td>
+                        <td>{{goods.good_price}}</td>
+                        <td>{{goods.good_num}}</td>
+                        <td>{{goods.good_total_price}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <div class="modal-body row" style="padding:0px 20px;">
+        <section class="panel">
+            <div class="panel-body">
+                <table class="table  table-hover general-table" >
+                    <thead>
+                    <tr>
+                        <th>应收价格</th>
+                        <th>折扣</th>
+                        <th>折扣后金额</th>
+                        <th>抹零</th>
+                        <th>实收</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="before_modify">
+                        <td>{{order.payment|currency}}</td>
+                        <td>{{order.discount}}</td>
+                        <td>{{order.discount_payment|currency}}</td>
+                        <td>{{order.minus_money}}</td>
+                        <td>{{order.real_payment|currency}}</td>
+                    </tr>
+                    <tr class="modifying" style="display:none;">
+                        <td>{{order.payment}}</td>
+                        <td><input maxlength="4" id="discount" type="text" value="{{order.discount}}" style="width:50px;" ng-model="discount" ng-change="discount_change();"/></td>
+                        <td>{{order.discount_payment|currency}}</td>
+                        <td><input maxlength="4" id="minus" type="number" value="{{order.minus_money}}" ng-model="minus" ng-change="minus_change();" style="width:50px;"/></td>
+                        <td>{{order.real_payment|currency}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <div class="modal-body row" style="padding:0px 20px;">
+        <section class="panel">
+            <div class="panel-body">
+                <h4 style="color:red">应收用户：{{order.real_payment|currency}}元</h4>
+            </div>
+        </section>
+
+    </div>
+    <div class="modal-body row" style="padding:0px 20px 10px 20px;">
+
+        <div class="pull-right" style="width:100%">
+            <!--<button class="btn btn-danger btn-sm" type="button">Delete</button>-->
+            <button class="btn btn-success  btn-lg" ng-click="check_bill(order.order_id);" style="width:100%;" type="button" data-dismiss="">
+                结账
+            </button>
+        </div>
+
+    </div>
+    <div class="modal-body row" style="padding:0px 20px 10px 20px;">
+
+        <div class="pull-right">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-primary btn-sm" type="button" ng-click="print(order.order_id,order.shop_id);">打印</button>
+            <button class="btn btn-defalut btn-sm before_modify" type="button" ng-click="modifyOrder(1);">修改</button>
+            <button class="btn btn-defalut btn-sm modifying" type="button" style="display:none;" ng-click="modifyOrder(2);">取消修改</button>
+            <button class="btn btn-success btn-sm modifying" type="button" style="display:none;" ng-click="doSave();">保存修改</button>
+            <button class="btn btn-danger btn-sm" type="button" ng-click="doCancel();">取消</button>
+        </div>
+
+    </div>
+
+
+</div>

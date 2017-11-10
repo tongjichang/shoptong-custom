@@ -1,0 +1,56 @@
+<div class="role">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="profile-pic text-center">
+                    <img alt="" src="{{shop_img_url}}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-body">
+                <table style="width:100%;" style="font-size: 24px;">
+                    <tr>
+                        <td style="width:25%;text-align: right;">名称：</td>
+                        <td>{{shop.shop_name}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%;text-align: right;">状态：</td>
+                        <td>{{shop.shop_status|user_status}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%;text-align: right;">营业时间：</td>
+                        <td colspan="3">{{shop.begin_time}}至{{shop.end_time}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%;text-align: right;">地址：</td>
+                        <td colspan="3">{{shop.address}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%;text-align: right;">公告：</td>
+                        <td colspan="3">{{shop.notice}}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%;text-align: right;">简介：</td>
+                        <td colspan="3">{{shop.introduction}}</td>
+                    </tr>
+
+
+                </table>
+                <div class="text-center" style="margin-top:10px;">
+                    <img alt="" src="{{shop_wechat_img_url}}" style="width:80%;height:100%;max-width: 300px;max-height: 300px;"><br>
+                    微信二维码<!--<a>查看大图</a>-->
+                </div>
+                <div class="text-center">
+                    <img alt="" src="{{shop_alipay_img_url}}" style="width:80%;height:100%;max-width: 300px;max-height: 300px;">
+                    <br>
+                    支付宝二维码<!--<a>查看大图</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

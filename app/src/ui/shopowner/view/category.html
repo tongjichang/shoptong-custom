@@ -1,0 +1,57 @@
+<div class="row" ng-controller="categoryController">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>菜品分类</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="分类名称" ng-model="category_name" class="form-control">
+                        </td>
+                        <td><button class="btn btn-success" type="button" ng-click="add_category_click();">新增</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th width="20%"> 编号</th>
+                        <th width="20%">分类名称</th>
+                        <th width="20%"> 状态</th>
+                        <th width="20%">操作</th>
+                        <th width="20%">创建时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="ctg in ctg_list">
+                        <td>
+                           {{$index+1}}
+                        </td>
+                        <td >
+                            <div id="{{ctg.category_id}}_td">{{ctg.category_name}}</div>
+                            <div id="{{ctg.category_id}}_hide" style="display: none;">
+                                <input id="{{ctg.category_id}}_name" type="text" value="{{ctg.category_name}}">&nbsp;&nbsp;
+                                <button class="btn btn-info btn-xs" type="button" ng-click="cancle_ctg(ctg.category_id,ctg.category_name);">取消</button>&nbsp;&nbsp;
+                                <button class="btn btn-success btn-xs" type="button" ng-click="save_ctg(ctg.category_id,ctg.category_name)">保存</button>
+                            </div>
+                        </td>
+                        <td><span class="label label-success label-mini" ng-show="ctg.category_status==1">正常</span>
+                            <span class="label label-warning label-mini" ng-show="ctg.category_status==2">下架</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-success btn-xs" type="button" ng-show="ctg.category_status==2" ng-click="update_category('',1,ctg.category_id);">上架</button>
+                            <button class="btn btn-warning btn-xs" type="button" ng-show="ctg.category_status==1" ng-click="update_category('',2,ctg.category_id);">下架</button>
+                            <button class="btn btn-info btn-xs" type="button" ng-click="pre_modify_ctg(ctg.category_id,ctg.category_name);">改名</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="delete_category(ctg.category_id);">删除</button>
+                        </td>
+                        <td>{{ ctg.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>

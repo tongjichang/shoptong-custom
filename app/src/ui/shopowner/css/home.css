@@ -1,0 +1,11 @@
+.table_div{
+    cursor:pointer;
+    color:#646464;
+    width:100px;
+    height:100px;
+    border:1px solid #ddd;
+}
+
+.table_div:hover{
+    background-color: #FAFAFA;
+}

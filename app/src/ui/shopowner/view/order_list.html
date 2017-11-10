@@ -1,0 +1,74 @@
+<div class="row" ng-controller="orderlistController">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>订单列表</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+                    <!--
+                    <tr>
+                        <td><button class="btn btn-success" type="button" ng-click="add_category_click();">新增</button></td>
+                        <td colspan="10"></td>
+                    </tr>
+                    -->
+                    <tr>
+                        <th>编号</th>
+                        <th>订单编号</th>
+                        <th>用户</th>
+                        <th>用餐人数</th>
+                        <th>桌台</th>
+                        <th>应收金额</th>
+                        <th>折扣</th>
+                        <th>折扣后金额</th>
+                        <th>抹零金额</th>
+                        <th>实际收用户金额</th>
+                        <th>服务员</th>
+                        <th>菜品数量</th>
+                        <th>查看菜品</th>
+                        <th>备注</th>
+                        <th>订单状态</th>
+                        <th>创建时间</th>
+                        <th>结账时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="order in order_list">
+                        <td>{{(currentPage-1)*prePage+$index+1}}</td>
+                        <td>{{order.order_num}}</td>
+                        <td>{{order.user_phone}}</td>
+                        <td>{{order.people_count}}</td>
+                        <td>{{order.area.area_name}}--{{order.table.table_name}}</td>
+                        <td>{{order.payment}}</td>
+                        <td>{{order.discount}}</td>
+                        <td>{{order.discount_payment}}</td>
+                        <td>{{order.minus_money}}</td>
+                        <td>{{order.real_payment}}</td>
+                        <td>{{order.waiter.waiter_name}}</td>
+                        <td>{{order.goods_num}}</td>
+                        <td><a>详细</a></td>
+                        <td>{{order.comments}}</td>
+                        <td ng-show="order.status==0" style="color:green;">未处理</td>
+                        <td ng-show="order.status==1" style="color:blue;">已结账</td>
+                        <td ng-show="order.status==2" style="color:red;">取消</td>
+                        <td>{{order.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td>{{order.order_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td>
+                            <button class="btn btn-success btn-xs" type="button" ng-show="order.status==0" ng-click="check_order(order.order_id);">结账</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="cancle_order(order.order_id);">取消</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="18">
+                            <uib-pagination items-per-page="prePage" ng-change="select_order()" total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" boundary-link-numbers="true"></uib-pagination>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+</div>

@@ -1,0 +1,95 @@
+
+<div class="row" ng-controller="updateshopController">
+    <div class="col-lg-12" >
+        <section class="panel" >
+            <header class="panel-heading">
+                <h3>修改店铺</h3>
+            </header>
+            <div class="panel-body" style="width:60%;margin-left: 10%">
+                <form class="form-horizontal adminex-form" method="get" id="add_form">
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">店铺名称</label>
+                        <div class="col-sm-10">
+                            <input type="hidden" ng-model="shop_id" ng-value="shop_id"/>
+                            <input type="text" class="form-control" maxlength="25" ng-model="shop_name" ng-value="shop_name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">店铺负责人</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"  ng-model="shop_owner_name" ng-value="shop_owner_name">
+                            <!--<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>-->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">负责人电话</label>
+                        <div class="col-sm-10">
+                            <input type="text"  class="form-control"  ng-model="shop_owner_phone" ng-value="shop_owner_phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">营业开始时间点</label>
+                        <div class="col-sm-10">
+                            <select id="begintime" name="type" placeholder="开始时间点" ng-model="begintime" ng-options="x for (x, y) in type" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">营业结束时间点</label>
+                        <div class="col-sm-10">
+                            <select id="endtime" name="type" placeholder="结束时间点" ng-model="endtime" ng-options="x for (x, y) in type1" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">地址</label>
+                        <div class="col-sm-10">
+                            <input type="text"  class="form-control" ng-model="address" ng-value="address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">简介</label>
+                        <div class="col-sm-10">
+                            <textarea rows="6" class="form-control" maxlength="50" ng-model="introduction" ng-value="introduction"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">上传LOGO</label>
+                        <div class="col-sm-10">
+                            <input type="file" file-model="myFile" >
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">微信支付图片</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="wechat_img"  file-model="wechat_img" >
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">支付宝支付图片</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="alipay_img" file-model="alipay_img" >
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-sm-10">
+                            <button class="btn btn-success btn-lg" type="button" ng-click="doUpdate();">保存</button>&nbsp;&nbsp;
+                            <button class="btn btn-default btn-lg" type="button" ng-click="go_back();">返回</button>
+                        </div>
+
+                    </div>
+
+
+                </form>
+            </div>
+        </section>
+    </div>
+</div>

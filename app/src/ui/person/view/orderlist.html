@@ -1,0 +1,93 @@
+<div>
+<!--头部-->
+<header>
+    <div class="header">
+        <h1>订单详情</h1>
+        <a href="#/index" class="return"><i></i></a>
+    </div>
+</header>
+<!--内容区-->
+<article class="main-container" style="margin-top:50px;">
+
+    <!--订单编号-->
+    <div class="memberDetailheader line" style="margin-top: 0px;margin-bottom: 0px;">订单编号：{{order.order_num}}<br>
+        <p>下单时间：{{order.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</p>
+    </div>
+
+    <!--购买商品-->
+    <div class="list-content cartlist order-Pro memberDetaillist" style="margin-top: 0px;margin-bottom: 0px;">
+        <div>
+            <ul class="line-li">
+                <li ng-repeat="goods in order.cart.goods_set">
+                    <a href="javascript:void(0);"><div class="pro-img"><img src="http://47.92.66.33:8080{{goods.img_url}}" alt="" width="50" height="45"></div></a>
+                    <div class="pro-con" style="position: relative">
+                        <h3 style="float: left;width:100px;margin-top: 10px">{{goods.good_name}}</h3>
+                        <b  style="float: left;width:70px;margin-top: 10px">￥{{goods.pre_price*goods.discount|number:2}}</b>
+                        <p style="position: absolute;right:10px;top: 15px;">&times;{{goods.good_num}}</p></div>
+                </li>
+            </ul>
+        </div>
+        <!--价格、下单时间-->
+
+
+        <div class="memberDetailPrice line" style="margin-top: 0px;margin-bottom: 0px;">
+            <p></p>
+            <p style="text-align:right;margin-right: 10px;margin-top: 50px;">应付：￥{{order.payment}}</p>
+            <!--<p>下单时间：{{order_add.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</p>-->
+            <div class="memberOrder-list line" style="position: relative;" >
+                <p style="float: left;margin-top: -49px;">
+                    <button ng-if="order.status==0" style="background-color: green;color:white;position: relative;">已下单</button>
+                    <button ng-if="order.status==-1" style="background-color: orange;color:white;position: relative;">服务员未确认,请稍后</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+</article>
+    <article class="main-container" style="margin-top:1px;" ng-if="order_add != null">
+
+        <!--订单编号-->
+        <div class="memberDetailheader line" style="margin-top: 0px;margin-bottom: 0px;">订单号(加菜)：{{order_add.order_num}}<br>
+            下单时间：{{order_add.create_time | date:'yyyy-MM-dd HH:mm:ss' }}
+        </div>
+
+        <!--购买商品-->
+        <div class="list-content cartlist order-Pro memberDetaillist" style="margin-top: 0px;margin-bottom: 0px;">
+            <div>
+                <ul class="line-li">
+                    <li ng-repeat="goods in order_add.cart.goods_set">
+                        <a href="javascript:void(0);"><div class="pro-img"><img src="http://47.92.66.33:8080{{goods.img_url}}" alt="" width="50" height="45"></div></a>
+                        <div class="pro-con">
+                            <h3 style="float: left;width:100px;margin-top: 10px">{{goods.good_name}}</h3>
+                            <b  style="float: left;width:70px;margin-top: 10px">￥{{goods.pre_price*goods.discount|number:2}}</b>
+                            <p style="position: absolute;right:10px;top: 15px;">&times;{{goods.good_num}}</p>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--价格、下单时间-->
+            <div class="memberDetailPrice line" style="margin-top: 0px;margin-bottom: 0px;">
+                <p></p>
+                <p style="text-align:right;margin-right: 10px;margin-top: 50px;">应付：￥{{order_add.payment}}</p>
+                <!--<p>下单时间：{{order_add.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</p>-->
+                <div class="memberOrder-list line" style="position: relative;">
+                    <p style="float: left;margin-top: -49px;">
+                        <button ng-if="order_add.status==0" style="background-color: green;color:white;position: relative;">已下单</button>
+                        <button ng-if="order_add.status==-1" style="background-color: orange;color:white;position: relative;">服务员未确认,请稍后</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!--按钮
+        <div class="memberDetailFooter line">
+
+        </div>
+        -->
+    </article>
+</div>

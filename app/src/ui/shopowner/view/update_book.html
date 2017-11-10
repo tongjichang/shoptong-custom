@@ -1,0 +1,82 @@
+<form id="default" class="form-horizontal">
+    <input type="hidden" id="shop_id" value="1">
+    <section class="panel">
+        <header class="panel-heading">
+            <h3>修改预定</h3>
+        </header>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">分区名称</label>
+                <div class="col-md-6 col-sm-6">
+                    <select class="form-control m-bot15" ng-model="area_id" ng-change="getTable();" >
+                        <option value="">请选择</option>
+                        <option ng-repeat="area in area_list" value="{{area.area_id}}" ng-selected="area_id">{{area.area_name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                    <label class="col-md-2 col-sm-2 control-label">桌台名称</label>
+                    <div class="col-md-6 col-sm-6">
+                        <select class="form-control m-bot15" ng-model="table_id">
+                            <option value="">请选择</option>
+                            <option ng-repeat="table in table_list" value="{{table.table_id}}" ng-selected="table_id">{{table.table_name}}</option>
+                        </select>
+                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">姓名</label>
+                <div class="col-md-6 col-sm-6">
+                    <input type="text" placeholder=" 姓名" ng-model="name" ng-value="name"  class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+            <label class="col-md-2 col-sm-2 control-label">电话</label>
+            <div class="col-md-6 col-sm-6">
+                <input type="text" placeholder="电话" ng-model="phone" maxlength="11" ng-value="phone" class="form-control">
+            </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">就餐人数</label>
+                <div class="col-md-6 col-sm-6">
+                    <input type="text" placeholder=" 就餐人数" ng-model="people_num" ng-value="people_num" maxlength="2" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">用餐时间</label>
+                <div class="col-sm-6">
+                    <div class="input-group bootstrap-timepicker">
+                        <input type="text" id="use_time" ng-model="use_time" ng-value="use_time" class="form-control timepicker-24" time-directive>
+                        <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
+                                </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">押金</label>
+                <div class="col-md-6 col-sm-6">
+                    <input type="text" placeholder=" 押金" ng-model="pre_fee" ng-value="pre_fee" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">备注</label>
+                <div class="col-md-6 col-sm-6">
+                    <input type="text" placeholder=" 备注" ng-model="remark" ng-value="remark" class="form-control">
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="button" class="btn btn-info finish" ng-click="update_btn_click();">保存</button>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+</form>
+
+

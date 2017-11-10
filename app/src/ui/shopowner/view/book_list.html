@@ -1,0 +1,63 @@
+<div class="row" >
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>预定列表</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="姓名" ng-model="name" class="form-control">
+                        </td>
+                        <td><button class="btn btn-success" type="button" ng-click="select_books();">查询</button></td>
+                        <td colspan="10"></td>
+                    </tr>
+
+                    <tr>
+                        <th>编号</th>
+                        <th>桌台名称</th>
+                        <th>姓名</th>
+                        <th>电话</th>
+                        <th>人数</th>
+                        <th>押金</th>
+                        <th>就餐时间</th>
+                        <th>创建时间</th>
+                        <th>备注</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="book in books_list">
+                        <td>{{(currentPage-1)*prePage+$index+1}}</td>
+                        <td>{{book.table_name}}</td>
+                        <td>{{book.name}}</td>
+                        <td>{{book.phone}}</td>
+                        <td>{{book.people_num}}</td>
+                        <td>{{book.pre_fee}}</td>
+                        <td>{{book.use_time}}</td>
+                        <td>{{book.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td>{{book.remark}}</td>
+                        <td>{{book.status | bookstatuse }}</td>
+                        <td>
+                            <button class="btn btn-success btn-xs" type="button" ng-show="book.status==2" ng-click="change_status(book.book_id,1);">恢复</button>
+                            <button class="btn btn-warning btn-xs" type="button" ng-show="book.status==1||book.status==3" ng-click="change_status(book.book_id,2);">取消</button>
+                            <button class="btn btn-default btn-xs" type="button" ng-click="modify_book(book.book_id)">修改</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="delete_book(book.book_id)">删除</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="11">
+                            <uib-pagination items-per-page="prePage" ng-change="select_books()" total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" boundary-link-numbers="true"></uib-pagination>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+</div>

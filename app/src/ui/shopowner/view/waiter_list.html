@@ -1,0 +1,53 @@
+<div class="row" ng-controller="waiterlistController">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>服务员列表</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+                    <!--
+                    <tr>
+                        <td><button class="btn btn-success" type="button" ng-click="add_category_click();">新增</button></td>
+                        <td colspan="10"></td>
+                    </tr>
+                    -->
+                    <tr>
+                        <th>编号</th>
+                        <th>姓名</th>
+                        <th>登录用户名</th>
+                        <th>账户状态</th>
+                        <th>账户类型</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="waiter in waiter_list">
+                        <td>{{(currentPage-1)*prePage+$index+1}}</td>
+                        <td>{{waiter.name}}</td>
+                        <td>{{waiter.username}}</td>
+                        <td>{{waiter.user.user_status | user_status}}</td>
+                        <td>{{waiter.user.role_id | waiter_status}}</td>
+                        <td>{{waiter.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td>
+                            <button class="btn btn-success btn-xs" type="button" ng-show="waiter.user.user_status==2" ng-click="change_status(waiter.waiter_id,1);">解冻</button>
+                            <button class="btn btn-warning btn-xs" type="button" ng-show="waiter.user.user_status==1" ng-click="change_status(waiter.waiter_id,2);">冻结</button>
+                            <!--<button class="btn btn-info btn-xs" type="button" ng-click="modify_click(waiter.user.user_id)">修改</button>-->
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="delete_waiter(waiter.waiter_id)">删除</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="cz_waiter(waiter.waiter_id)">密码重置</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="11">
+                            <uib-pagination items-per-page="prePage" ng-change="select_waiters()" total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" boundary-link-numbers="true"></uib-pagination>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+</div>

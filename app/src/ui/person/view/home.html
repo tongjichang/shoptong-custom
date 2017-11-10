@@ -1,0 +1,196 @@
+<div ng-if="rysj">
+<!--头部-->
+
+<div class="search" id="search" style="margin-top:0px;text-align:left;background: rgba(0,172,152,.95);position: fixed;z-index: 10;width:100%">
+    <div style="height:55px; background: rgba(0,172,152,.95);position: relative;color:#fff">
+        <h1 style="position: absolute;overflow: hidden;width: 60px;height: 60px;left:10px;top:5px;"><a href="#/shopinfo"><img src="http://47.92.66.33:8080{{shop.icon}}" height="40" width="60"></a></h1>
+        <h1  style="font-size:17px;margin-left: 80px;overflow: hidden;padding-top: 5px" >
+             <div style="height:25px;overflow: hidden " >{{shop.shop_name}}({{area.area_name}}-{{table.table_name}})</div>
+             <marquee style="font-size:14px; ">&nbsp营业时间：{{shop.begin_time}}点至{{shop.end_time}}点&nbsp&nbsp&nbsp公告：{{shop.notice}}</marquee>
+        </h1>
+    </div>
+
+        <!--通知公告/客服电话-->
+</div>
+
+<!--搜索内容-->
+<div class="search-content" id="search-content">
+    <i class="icon-font"></i>
+</div>
+
+<!--内容区-->
+<article class="main-container">
+
+    <!--左侧栏目-->
+    <div class="sortNav" id="sortNav" style="margin-top:55px;">
+        <!--<a href="#" class="icon-stars ">活动专区</a>
+        <p class="icon-sort line">分类导航</p>
+
+        <a href="#">蔬菜水果</a>
+        <a href="#" class="select">肉类禽蛋</a>
+        <a href="#">乳品面点</a>
+        <a href="#">海鲜水产</a>
+        <a href="#">零食冲饮</a>
+        <a href="#">粮油副食</a>
+        <a href="#">干    货</a>
+        <a href="#">礼    包</a>
+        <a href="#">乳品面点</a>
+        <a href="#">海鲜水产</a>
+        <a href="#">零食冲饮</a>
+        <a href="#">粮油副食1</a>
+        -->
+
+        <a href="javascript:void(0);" id="default_ctg" class="select ctg_select" ng-click="select_ctg('default_ctg');">全部</a>
+        <a href="javascript:void(0);" id="tuijian_ctg" class="ctg_select" ng-click="select_ctg('tuijian_ctg');">推荐菜品</a>
+        <a href="javascript:void(0);" id="{{category.category_id}}" class="ctg_select" ng-repeat="category in category_list" ng-click="select_ctg(category.category_id);">{{category.category_name}}</a>
+
+    </div>
+
+    <!--右侧产品-->
+    <div class="sortContent line" style="margin-top:55px;">
+        <!--活动列表-->
+        <!--产品列表-->
+        <a id="default_ctg_anchor" class="line1"></a>
+        <ol class="list-content" id="list-content" ng-repeat="category in category_list">
+            <a id="tuijian_ctg_anchor" class="line1"></a>
+            <li class="line" ng-repeat="goods in category.goods_list | filter:{tuijian:1}" >
+                <a href="javascript:void(0);">
+                    <div class="pro-img"><img src="http://47.92.66.33:8080{{goods.img_url}}" alt=""></div>
+                    <div class="pro-con"><h3>{{goods.goods_name}}</h3>
+                        <font>{{goods.introduction}}</font><b ng-if="goods.discount<1">¥{{goods.pre_price*goods.discount|number:2}}<s>¥{{goods.pre_price}}</s></b>
+                        <b ng-if="goods.discount==1">¥{{goods.pre_price}}</b>
+                        <p></p>
+                    </div>
+                </a>
+
+                <a ng-if="goods.in_cart_num==0" href="javascript:void(0);" ng-click="addCart(goods.good_id);" class="list-cart"><i class="icon-cartadd"></i></a>
+
+                <div ng-if="goods.in_cart_num>0" class="D-BuyNum"><button ng-click="modifyCart(goods.good_id,cart.cart_id);"><i class="icon-reduce"></i></button><input type="text" class="line" value="{{goods.in_cart_num}}"><button ng-click="addCart(goods.good_id);"><i class="icon-plus"></i></button></div>
+            </li>
+            <a id="{{category.category_id}}_anchor" class="line1"></a>
+            <li class="line" ng-repeat="goods in category.goods_list | filter:{tuijian:0}" >
+                <a href="javascript:void(0);">
+                    <div class="pro-img"><img src="http://47.92.66.33:8080{{goods.img_url}}" alt=""></div>
+                    <div class="pro-con"><h3>{{goods.goods_name}}</h3>
+                        <font>{{goods.introduction}}</font><b ng-if="goods.discount<1">¥{{goods.pre_price*goods.discount|number:2}}<s>¥{{goods.pre_price}}</s></b>
+                        <b ng-if="goods.discount==1">¥{{goods.pre_price}}</b>
+                        <p></p>
+                    </div>
+                </a>
+
+                <a ng-if="goods.in_cart_num==0" href="javascript:void(0);" ng-click="addCart(goods.good_id);" class="list-cart"><i class="icon-cartadd"></i></a>
+
+                <div ng-if="goods.in_cart_num>0" class="D-BuyNum"><button ng-click="modifyCart(goods.good_id,cart.cart_id);"><i class="icon-reduce"></i></button><input type="text" class="line" value="{{goods.in_cart_num}}"><button ng-click="addCart(goods.good_id);"><i class="icon-plus"></i></button></div>
+            </li>
+        </ol>
+        <br><br>
+    </div>
+
+    <!--购物车-->
+    <div class="cartContent fadeInBottom100" id="cartContent">
+
+        <div class="LayerHeader line">
+            <button class="Del" ng-click="dropCart(cart.cart_id)"><i class="icon-delete"></i>清空</button>
+            <button id="close_btn" class="close pl"><i class="icon-plus rot45"></i></button>
+        </div>
+
+        <div class="cartContentList" >
+            <ul class="line-li">
+                <li ng-repeat="goods in cart.goods_set">
+                    <img src="http://47.92.66.33:8080{{goods.img_url}}" alt=""><p>{{goods.good_name}}</p><span>¥{{goods.good_total_price}}</span>
+                    <div class="D-BuyNum"><button ng-click="modifyCart(goods.good_id,cart.cart_id);"><i class="icon-reduce"></i></button><input type="text" class="line" value="{{goods.good_num}}"><button ng-click="addCart(goods.good_id);"><i class="icon-plus"></i></button></div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="LayerFooter">
+            共计：<span>¥{{cart.total_price}}</span>
+        </div>
+    </div>
+    <!--产品介绍-->
+    <div class="DetailContent fadeInBottom100" id="DetailContent">
+
+        <div class="LayerHeader">
+            <button class="button"><span class="close"><i class="icon-plus rot45"></i></span></button>
+        </div>
+
+        <div class="DetailContentBox">
+
+            <!--标题-->
+            <div class="D-head line">
+                <h2>请填写用餐信息</h2>
+                <font>确认下单后，服务员会跟您当面确认订单内容</font>
+                <br>
+            </div>
+
+            <div class="D-pro-content line">
+                <div class="cartContentList" >
+                    <ul class="line-li">
+                        <li ng-repeat="goods in cart.goods_set">
+                            <img src="http://47.92.66.33:8080{{goods.img_url}}" alt=""><p>{{goods.good_name}} X {{goods.good_num}} <span>¥{{goods.good_total_price}}</span></p>
+                        </li>
+                        <li>共计：<span>¥{{cart.total_price}}</span></li>
+                    </ul>
+                </div>
+
+                <div class="order-Remark line">
+                    <textarea class="line-ora" id="people_count" maxlength="2" placeholder="用餐人数" style="width:200px;height:20px;"></textarea>
+                    <textarea class="line-ora" id="user_phone" maxlength="11" placeholder="手机号码" style="width:200px;height:20px;"></textarea>
+                    <textarea class="line-ora" id="comments" maxlength="50" placeholder="请输入备注，限50个字以内"></textarea>
+                    <input type="hidden" id="way" value="1"/>
+                    <ol class="FilterContentList">
+                        <li><span id="way_1" ng-click="change_way(1);" class="select icon-correct">堂食</span></li>
+                        <li><span id="way_2" ng-click="change_way(2);">打包</span></li>
+                    </ol>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+            </div>
+
+        </div>
+
+        <div class="LayerFooter">
+            <button ng-click="confirm_order(cart.cart_id);">确认下单</button>
+        </div>
+
+    </div>
+
+</article>
+
+<!--底部栏目-->
+<menu>
+
+
+    <a href="javascript:void(0)" id="orderCart"><i class="icon-cart" ><span ng-if="cart!=null">{{cart.total_num}}</span></i>购物车</a>
+    <a href="#/orderlist"><i class="icon-allorders"></i>订单</a>
+    <a href="#/servicelist"><i class="icon-star"></i>服务</a>
+    <!--<a href="member.html"><i class="icon-head"></i>服务</a>-->
+    <!--<a><button ng-click="confirm_order(cart.cart_id);">下单</button></a>-->
+    <a id="submit_cart"><button>下单</button></a>
+    <a id="submit_cart_unbind" style="display:none;"><button>下单</button></a>
+</menu>
+
+<!--弹出圈圈loading-->
+<div class="spinner" style="display: none;"><i></i></div>
+
+<!--弹出loading-->
+<div class="msg-loading" style="display: none;">
+    <div class="msg-box">
+        <div class="msg-load">
+            <p>loading<span class="dotting"></span></p>
+        </div>
+        <div class="msg-top"></div>
+        <div class="msg-left"></div>
+        <div class="msg-right"></div>
+    </div>
+</div>
+
+</div>
+<div ng-if="!rysj" align = "center">
+    本店的营业时间为：{{shop.begin_time}}点至{{shop.end_time}}点,已暂停营业！非常抱歉。
+</div>

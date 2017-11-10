@@ -1,0 +1,58 @@
+<div class="row" ng-controller="superController">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>超级用户列表</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+
+                    <tr>
+                        <td>
+                            <select id="type" name="type" placeholder="用户类型" ng-model="usertype" ng-options="x for (x, y) in type" class="form-control">
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" placeholder="用户名称" ng-model="user_name" class="form-control">
+                        </td>
+                        <td><button class="btn btn-success" type="button" ng-click="select_supers();">查询</button></td>
+                        <td colspan="10"></td>
+                    </tr>
+
+                    <tr>
+                        <th>编号</th>
+                        <th>登录用户名</th>
+                        <th>密码</th>
+                        <th>账户类型</th>
+                        <th>账户状态</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="user in users_list">
+                        <td>{{(currentPage-1)*prePage+$index+1}}</td>
+                        <td>{{user.USER_NAME}}</td>
+                        <td>{{user.PASSWORD}}</td>
+                        <td>{{user.ROLE_ID | type_status}}</td>
+                        <td>{{user.USER_STATUS | user_status}}</td>
+                        <td>{{user.CREATE_TIME | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td>
+                            <button class="btn btn-success btn-xs" type="button" ng-show="user.USER_STATUS==2" ng-click="change_status(user.USER_ID,1);">解冻</button>
+                            <button class="btn btn-warning btn-xs" type="button" ng-show="user.USER_STATUS==1" ng-click="change_status(user.USER_ID,2);">冻结</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="delete_users(user.USER_ID)">删除</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="11">
+                            <uib-pagination items-per-page="prePage" ng-change="select_supers()" total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" boundary-link-numbers="true"></uib-pagination>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+</div>

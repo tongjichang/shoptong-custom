@@ -1,0 +1,52 @@
+<div class="row"  ng-init="printerlist();">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>销售统计</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <select id="type1" name="type" placeholder="时间段" ng-model="time_flag" ng-options="x for (x, y) in type" class="form-control">
+                            </select>
+
+                        </div>
+                        <div class="col-md-3">
+                            <p class="input-group" ><input type="text" placeholder="开始时间" class="form-control" uib-datepicker-popup readonly ng-model="start_time" is-open="startPopupOpened"  datepicker-options="dateOptions" ng-required="true" close-text="关闭" current-text="今天"/>
+                              <span class="input-group-btn">
+    　　<button type="button" class="btn btn-default" ng-click="startOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+   </span>
+                            </p>
+
+                        </div>
+                        <div class="col-md-3">
+                            <p class="input-group"><input type="text" placeholder="终止时间" class="form-control" uib-datepicker-popup readonly ng-model="end_time" is-open="endPopupOpened"  datepicker-options="dateOptions" ng-required="true" close-text="关闭" current-text="今天"/>
+                              <span class="input-group-btn">
+    　　<button type="button" class="btn btn-default" ng-click="endOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+   </span>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success" type="button" ng-click="printerlist();">查询</button>
+                        </div>
+                    </div>
+                    <thead>
+                    <tr>
+                    </tr>
+                    <tr>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td colspan="6" align ="center">
+                        <div id="main" style="width:1000px;height:400px;"></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>

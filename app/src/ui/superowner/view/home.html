@@ -1,0 +1,227 @@
+ <!--body wrapper start-->
+    <div class="wrapper" ng-controller="superhomeController">
+        <div class="row">
+            <div class="col-md-6">
+                <!--statistics start-->
+                <div class="row state-overview">
+                    <div class="col-md-6 col-xs-12 col-sm-6">
+                        <div class="panel purple">
+                            <div class="symbol">
+                                <i class="fa fa-gavel"></i>
+                            </div>
+                            <div class="state-value">
+                                <div class="value">{{shop_count}}</div>
+                                <div class="title">餐厅数量</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6">
+                        <div class="panel red">
+                            <div class="symbol">
+                                <i class="fa fa-tags"></i>
+                            </div>
+                            <div class="state-value">
+                                <div class="value">{{table_count}}</div>
+                                <div class="title">桌台数量</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row state-overview">
+                    <div class="col-md-6 col-xs-12 col-sm-6">
+                        <div class="panel blue">
+                            <div class="symbol">
+                                <i class="fa fa-money"></i>
+                            </div>
+                            <div class="state-value">
+                                <div class="value">{{order_count}}</div>
+                                <div class="title">订单总数</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 col-sm-6">
+                        <div class="panel green">
+                            <div class="symbol">
+                                <i class="fa fa-eye"></i>
+                            </div>
+                            <div class="state-value">
+                                <div class="value">{{order_count_today}}</div>
+                                <div class="title"> 今日订单数量</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--statistics end-->
+            </div>
+            <div class="col-md-6">
+                <!--more statistics box start-->
+                <div class="panel deep-purple-box">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-7 col-xs-7">
+                                <div id="graph-donut" class="revenue-graph"></div>
+
+                            </div>
+                            <div class="col-md-5 col-sm-5 col-xs-5">
+                                <ul class="bar-legend">
+                                    <li><span class="blue"></span> Open rate</li>
+                                    <li><span class="green"></span> Click rate</li>
+                                    <li><span class="purple"></span> Share rate</li>
+                                    <li><span class="red"></span> Unsubscribed rate</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--more statistics box end-->
+            </div>
+        </div>
+        <!--
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="calendar-block ">
+                            <div class="cal1">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="row revenue-states">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <h4>Monthly revenue report</h4>
+                                <div class="icheck">
+                                    <div class="square-red single-row">
+                                        <div class="checkbox ">
+                                            <input type="checkbox" checked>
+                                            <label>Online</label>
+                                        </div>
+                                    </div>
+                                    <div class="square-blue single-row">
+                                        <div class="checkbox ">
+                                            <input type="checkbox">
+                                            <label>Offline </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <ul class="revenue-nav">
+                                    <li><a href="#">weekly</a></li>
+                                    <li><a href="#">monthly</a></li>
+                                    <li class="active"><a href="#">yearly</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="clearfix">
+                                    <div id="main-chart-legend" class="pull-right">
+                                    </div>
+                                </div>
+
+                                <div id="main-chart">
+                                    <div id="main-chart-container" class="main-chart">
+                                    </div>
+                                </div>
+                                <ul class="revenue-short-info">
+                                    <li>
+                                        <h1 class="red">15%</h1>
+                                        <p>Server Load</p>
+                                    </li>
+                                    <li>
+                                        <h1 class="purple">30%</h1>
+                                        <p>Disk Space</p>
+                                    </li>
+                                    <li>
+                                        <h1 class="green">84%</h1>
+                                        <p>Transferred</p>
+                                    </li>
+                                    <li>
+                                        <h1 class="blue">28%</h1>
+                                        <p>Temperature</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel">
+                    <div class="panel-body extra-pad">
+                        <h4 class="pros-title">prospective <span>leads</span></h4>
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-4">
+                                <div id="p-lead-1"></div>
+                                <p class="p-chart-title">Laptop</p>
+                            </div>
+                            <div class="col-sm-4 col-xs-4">
+                                <div id="p-lead-2"></div>
+                                <p class="p-chart-title">iPhone</p>
+                            </div>
+                            <div class="col-sm-4 col-xs-4">
+                                <div id="p-lead-3"></div>
+                                <p class="p-chart-title">iPad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel">
+                    <div class="panel-body extra-pad">
+                        <div class="col-sm-6 col-xs-6">
+                            <div class="v-title">Visits</div>
+                            <div class="v-value">10,090</div>
+                            <div id="visit-1"></div>
+                            <div class="v-info">Pages/Visit</div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            <div class="v-title">Unique Visitors</div>
+                            <div class="v-value">8,173</div>
+                            <div id="visit-2"></div>
+                            <div class="v-info">Avg. Visit Duration</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="panel green-box">
+                    <div class="panel-body extra-pad">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="knob">
+                                        <span class="chart" data-percent="79">
+                                            <span class="percent">79% <span class="sm">New Visit</span></span>
+                                        </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="knob">
+                                        <span class="chart" data-percent="56">
+                                            <span class="percent">56% <span class="sm">Bounce rate</span></span>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
+    <!--body wrapper end-->

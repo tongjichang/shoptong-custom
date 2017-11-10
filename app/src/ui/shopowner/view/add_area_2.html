@@ -1,0 +1,27 @@
+<form id="default" class="form-horizontal">
+<section class="panel">
+    <header class="panel-heading">
+        <h3>新增分区</h3>
+    </header>
+    <div class="panel-body" ng-controller="addAreaController">
+        <div class="form-group">
+            <label class="col-md-2 col-sm-2 control-label">分区名称</label>
+            <div class="col-md-6 col-sm-6">
+                <input type="hidden" id="shop_id" value="1">
+                <input type="text" placeholder="分区名称" ng-model="area_name" class="form-control">
+            </div>
+        </div>
+
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="button" class="btn btn-info finish" ng-click="save_btn_click();">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+</form>
+
+

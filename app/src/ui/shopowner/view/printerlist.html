@@ -1,0 +1,62 @@
+<div class="row" ng-controller="shopPrinterController">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>打印机列表</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+                    <tr>
+                        <td>
+                            <select id="type" name="type" placeholder="打印类型" ng-model="type_print" ng-options="x for (x, y) in type" class="form-control">
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" placeholder="打印机名称" ng-model="printer_name" class="form-control">
+                        </td>
+                        <td>
+                            <input type="text" placeholder="打印机编号" ng-model="printer_no" class="form-control">
+                            <input type="hidden" placeholder="打印id" ng-model="id" class="form-control">
+                        </td>
+                        <td><button class="btn btn-success" type="button" ng-click="add_printer();">{{button}}</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th width="10%"> 编号</th>
+                        <th width="20%">打印类型</th>
+                        <th width="20%">打印机名称</th>
+                        <th width="20%"> 打印机编号</th>
+                        <th width="10%">操作</th>
+                        <th width="20%">添加时间时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="printer in printer_list">
+                        <td>
+                            {{$index+1}}
+                        </td>
+                        <td >
+                            <div>{{printer.type_print | type_print}}</div>
+                        </td>
+                        <td >
+                            <div>{{printer.printer_name}}</div>
+                        </td>
+                        <td>
+                            <div>{{printer.printer_no}}</div>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="delete_printer(printer.id);">删除</button>
+                          <!--  <button class="btn btn-danger btn-xs" type="button" ng-click="update_printer(printer.id,printer.printer_name,printer.printer_no,printer.type_print);">修改</button>-->
+                        </td>
+                        <td>{{ printer.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>

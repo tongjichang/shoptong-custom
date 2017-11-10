@@ -1,0 +1,74 @@
+<div class="row" ng-controller="shoplistController">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>店铺列表</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+                    <tr>
+                        <td>
+                            <input type="text" placeholder="商铺名称" ng-model="shop_name" class="form-control">
+                        </td>
+                        <td><button class="btn btn-success" type="button" ng-click="select_shops();">查询</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>编号</th> 
+                        <th>店铺名称</th>
+                        <th>店铺负责人</th>
+                        <th>负责人电话</th>
+                        <!--<th>营业开始时间</th>
+                        <th>营业结束时间</th>
+                        <th>地址</th>
+                        <th>简介</th>-->
+                        <th>店铺logo</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="shop in select_shop">
+                        <td>{{$index+1}}</td>
+                        <td>{{shop.shop_name}}</td>
+                        <td>{{shop.shop_owner_name}}</td>
+                        <td>{{shop.shop_owner_phone}}</td>
+                        <!--<td>{{shop.begin_time}}</td>
+                        <td>{{shop.end_time}}</td>
+                        <td>{{shop.shop_url}}</td>
+                        <td>{{shop.introduction}}</td>-->
+                        <td> <a href="javascript:void(0);" ng-click="showImg(shop.icon,shop.shop_name)">查看</a></td>
+                        <td>
+                            <button class="btn btn-info btn-xs" type="button" ng-click="modify_click(shop.shop_id)">修改</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="delete_shop(shop.shop_id)">删除</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="11">
+                            <uib-pagination items-per-page="prePage" ng-change="select_shops()" total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" boundary-link-numbers="true"></uib-pagination>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+ <div class="modal fade" id="imgDiv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="check_title">{{img_name}}</h4>
+                </div>
+
+                <div align = "center" class="modal-body row">
+                    <img id="shop_img" src=""/>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

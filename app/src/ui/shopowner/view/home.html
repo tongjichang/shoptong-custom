@@ -1,0 +1,64 @@
+<form id="area_form" action="" method="get">
+<!--body wrapper start-->
+    <input id="status_filter" type="hidden" ng-model="status_filter">
+    <input type="hidden" type="text" ng-value="home_right">
+<div class="wrapper" style="padding:0px 15px 15px 15px;">
+<div class="row">
+    <ul id="filters" class="media-filter">
+        <li><a href="javascript:void(0);" ng-click="table_filter();" data-filter="*" style="background-color: white;color:black;"> 所有</a></li>
+        <li><a href="javascript:void(0);" ng-click="table_filter(0);"  data-filter=".images" style="background-color: white;color:black;">空闲</a></li>
+        <li><a href="javascript:void(0);" ng-click="table_filter(1);"  data-filter=".audio" style="background-color: #00EE76;color:black;">使用中</a></li>
+        <li><a href="javascript:void(0);" ng-click="table_filter(2);" data-filter=".video" style="background-color: #FFEC8B;color:black;">预定</a></li>
+        <li><a href="javascript:void(0);" ng-click="table_filter(3,4);"  data-filter=".documents" style="background-color: #FF0000;color:black;">其他</a></li>
+    </ul>
+
+</div>
+    <div class="row">
+
+        <div class="col-sm-8"  ng-controller="tableController">
+
+
+            <section class="panel" ng-repeat="area in areas">
+                <header class="panel-heading">
+                    {{area.area_name}}
+                    <span class="tools pull-right">
+                                <!--<a href="javascript:;" class="fa fa-chevron-down"></a>-->
+                                <a href="javascript:void(0);" ng-click="deleteArea(area.area_id);" class="fa fa-times"></a>
+                             </span>
+                </header>
+                <div class="panel-body">
+
+                    <div id="gallery" class="media-gal">
+                        <div  style="float:left;margin-right: 5px;margin-bottom: 5px;"
+                              ng-repeat="table in area.table_list|filter:{table_status:status_filter}">
+                                <div ng-show="table.table_status==0" ng-click="show_check(table.table_id,table.table_status);" class="table_div"
+                                     style="background-color: white;">
+                                    {{table.table_name}}
+                                </div>
+                                <div ng-show="table.table_status==1" ng-click="show_check(table.table_id,table.table_status);" class="table_div"
+                                     style="background:-webkit-gradient(linear, 0 0, 0 100%, from(white), to(#00EE76));">
+                                    {{table.table_name}}
+                                </div>
+                                 <div ng-show="table.table_status==2" ng-click="show_check(table.table_id,table.table_status);" class="table_div"
+                                      style="background:-webkit-gradient(linear, 0 0, 0 100%, from(white), to(#FFEC8B));">
+                                        {{table.table_name}}
+                                  </div>
+                                 <div ng-show="table.table_status==3||table.table_status==4" ng-click="show_check(table.table_id,table.table_status);"
+                                      class="table_div"  style="background:-webkit-gradient(linear, 0 0, 0 100%, from(white), to(#FF0000));">
+
+                                    {{table.table_name}}
+                                </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-sm-4">
+            <ng-include src="home_right" ></ng-include>
+        </div>
+
+    </div>
+</div>
+<!--body wrapper end-->
+
+</form>

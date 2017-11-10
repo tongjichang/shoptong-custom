@@ -1,0 +1,72 @@
+<form id="default" class="form-horizontal">
+    <input type="hidden" id="shop_id" value="1">
+    <section class="panel">
+        <header class="panel-heading">
+            <h3>新增桌台</h3>
+        </header>
+        <div class="panel-body" ng-controller="addTableController">
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">分区名称</label>
+                <div class="col-md-6 col-sm-6">
+                    <select class="form-control m-bot15" ng-model="area_id">
+                        <option value="">-- 请选择 --</option>
+                        <option ng-repeat="area in area_list" value="{{area.area_id}}">{{area.area_name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">桌台名称</label>
+                <div class="col-md-6 col-sm-6">
+                    <input type="text" placeholder=" 桌台名称" ng-model="table_name" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 col-sm-2 control-label">容纳人数</label>
+                <div class="col-md-6 col-sm-6">
+                    <input type="text" placeholder=" 容纳人数" ng-model="people_count" class="form-control">
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="button" class="btn btn-info finish" ng-click="save_btn_click();">保存</button>
+                    </div>
+                </div>
+            <table class="table  table-hover general-table">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>分区名称</th>
+                    <th>桌台名称</th>
+                    <th>桌台状态</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="table in table_list">
+                    <td>{{(currentPage-1)*prePage+$index+1}}</td>
+                    <td>{{table.area_name}}</td>
+                    <td>{{table.table_name}}</td>
+                    <td>{{table.table_status | table_status}}</td>
+                    <td>{{table.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                    <td>
+                        <button class="btn btn-danger btn-xs" type="button" ng-click="deleteTable(table.table_id)">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="11">
+                        <uib-pagination items-per-page="prePage" ng-change="selectOnePageTable()" total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" boundary-link-numbers="true"></uib-pagination>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</form>
+
+
+

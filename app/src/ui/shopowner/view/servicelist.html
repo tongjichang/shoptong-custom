@@ -1,0 +1,51 @@
+<div class="row" ng-controller="serviceController">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>服务列表</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+                    <tr>
+                        <th width="10%"> 编号</th>
+                        <th width="10%">分区-桌号</th>
+                        <th width="20%">内容</th>
+                        <th width="10%">状态</th>
+                        <th width="10%">创建时间</th>
+                        <th width="10%">处理服务员</th>
+                        <th width="10%">处理时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr ng-repeat="service in service_list">
+                        <td>
+                            {{$index+1}}
+                        </td>
+                        <td >
+                            {{service.area.area_name}}-{{service.table.table_name}}
+                        </td>
+                        <td>
+                            {{service.service_content}}
+                        </td>
+                        <td>
+                            <span class="label label-default label-mini" ng-show="service.status==0">未处理</span>
+                            <span class="label label-success label-mini" ng-show="service.status==1">已处理</span>
+                            <span class="label label-warning label-mini" ng-show="service.status==2">取消</span>
+                        </td>
+                        <td>{{ service.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td>{{service.waiter.name}}</td>
+                        <td>{{ service.receive_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7">
+                            <uib-pagination items-per-page="prePage" ng-change="getServicelist();" total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" boundary-link-numbers="true"></uib-pagination>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+
+<div class="row" ng-controller="updateMenuController">
+    <div class="col-lg-12" >
+        <section class="panel" >
+            <header class="panel-heading">
+                <h3>修改菜品</h3>
+            </header>
+            <div class="panel-body" style="width:60%;margin-left: 10%">
+                <form class="form-horizontal adminex-form" method="get" id="add_form">
+                    <input type="hidden" ng-model="good_id" ng-value="good_id"/>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">菜品名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="goods_name" ng-value="goods_name">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">菜品分类</label>
+                        <div class="col-sm-10">
+
+                            <select class="form-control m-bot15"  ng-model="ctg_id" ng-init="ctg_id">
+                                <option ng-repeat="ctg in ctg_list" value="{{ctg.category_id}}" ng-selected="ctg.category_id==ctg_id">{{ctg.category_name}}</option>
+                            </select>
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">单价</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="pre_price" ng-value="pre_price">
+                            <!--<span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>-->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">折扣</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="discount" ng-value="discount">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">销量</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" ng-model="sales_count" ng-value="sales_count">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">简介</label>
+                        <div class="col-sm-10">
+                            <textarea rows="6" class="form-control" ng-model="introduction" ng-value="introduction"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputFile" class="col-sm-2 control-label">上传图片</label>
+                        <div class="col-sm-10">
+                            <input type="file" id="exampleInputFile">
+                            <p class="help-block">大小不能超过2M</p>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="exampleInputFile" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <button class="btn btn-success btn-lg" type="button" ng-click="save_update();">保存</button>&nbsp;&nbsp;
+                            <button class="btn btn-default btn-lg" type="button" ng-click="go_back();">返回</button>
+                        </div>
+
+                    </div>
+
+
+                </form>
+            </div>
+        </section>
+    </div>
+</div>

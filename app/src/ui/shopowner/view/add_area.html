@@ -1,0 +1,47 @@
+<form id="add_area_form" action="" method="get">
+<div class="ch-container" ng-controller="addAreaController">
+    <div class="row">
+        <div class="col-md-12 center login-header">
+            <h2>新增分区</h2>
+        </div>
+        <div class="box col-md-12" style="width: 80%;margin-left:10%">
+            <div class="box-inner">
+                <div class="box-content row" >
+                    <div class="col-lg-7 col-md-12" style="width:100%">
+                        <br>
+                        <input type="hidden" id="shop_id" value="1">
+                        <input type="text" ng-model="area_name" class="form-control" style="width:60%;margin-left:20%"  placeholder="分区名称">
+
+                        <br>
+
+                        <p class="center col-md-5">
+                            <button type="button" class="btn btn-primary" style="width:40%" ng-click="save_btn_click();">保存</button>
+                            <button type="button" class="btn btn-default" style="width:40%" ng-click="add_area_back();">返回</button>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <div id="alert_title"><h3></h3></div>
+                </div>
+                <div class="modal-body">
+                    <p id="alert_content"></p>
+                </div>
+                <div class="modal-footer">
+                    <a id="ok_btn" href="javascript:void(0);" class="btn btn-default" data-dismiss="modal">OK</a>
+                    <!--<a href="javascript:void(0);" class="btn btn-primary" data-dismiss="modal">Save changes</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

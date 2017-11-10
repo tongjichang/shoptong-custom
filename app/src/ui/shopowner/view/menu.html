@@ -1,0 +1,132 @@
+<div class="row" ng-controller="selectMenuController">
+    <div class="col-sm-12">
+        <section class="panel">
+            <header class="panel-heading">
+                <h3>菜品列表</h3>
+            </header>
+            <div class="panel-body">
+                <table class="table  table-hover general-table">
+                    <thead>
+                    <!--
+                    <tr>
+                        <td><button class="btn btn-success" type="button" ng-click="add_category_click();">新增</button></td>
+                        <td colspan="10"></td>
+                    </tr>
+                    -->
+                    <tr>
+                        <th width="5%">编号</th>
+                        <th>菜单名称</th>
+                        <th>所属分类</th>
+                        <th>单价</th>
+                        <th>折扣</th>
+                        <th>销量</th>
+                        <th>状态</th>
+                        <th>简介</th>
+                        <th>创建时间</th>
+                        <th>图片</th>
+                        <th>操作</th>
+                        <th>是否打印</th>
+                        <th>是否推荐</th>
+                        <th>打印机名称</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="goods in goods_list">
+                        <td>{{(currentPage-1)*prePage+$index+1}}</td>
+                        <td>{{goods.goods_name}}</td>
+                        <td>{{goods.ctg.category_name}}</td>
+                        <td>{{goods.pre_price}}</td>
+                        <td>{{goods.discount}}</td>
+                        <td>{{goods.sales_count}}</td>
+                        <td ng-show="goods.status==1" style="color:green;">正常</td>
+                        <td ng-show="goods.status==2" style="color:red;">下架</td>
+                        <td>{{goods.introduction}}</td>
+                        <td>{{goods.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                        <td>
+                            <a href="javascript:void(0);" ng-click="showImg(goods.img_url,goods.goods_name)">查看</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-success btn-xs" type="button" ng-show="goods.status==2" ng-click="change_status(goods.good_id,1);">上架</button>
+                            <button class="btn btn-warning btn-xs" type="button" ng-show="goods.status==1" ng-click="change_status(goods.good_id,2);">下架</button>
+                            <button class="btn btn-info btn-xs" type="button" ng-click="modify_click(goods.good_id)">修改</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="delete_goods(goods.good_id)">删除</button>
+                        </td>
+                        <td id="if_print_{{goods.good_id}}" ng-dblclick="changeIfPrinter(goods.good_id,goods.if_print);">{{goods.if_print | if_print}}</td>
+                        <td id="if_print_modify_{{goods.good_id}}_0" style="display:none;">
+                            <select id="if_print_{{goods.good_id}}_0">
+                                <option value="1">是</option>
+                                <option value="0" selected>否</option>
+                            </select>
+                            <button class="btn btn-info btn-xs" type="button" ng-click="cancle_if_print(goods.good_id,goods.if_print);">取消</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="save_if_print(goods.good_id,goods.if_print);">保存</button>
+
+                        </td>
+                        <td id="if_print_modify_{{goods.good_id}}_1" style="display:none;">
+                            <select id="if_print_{{goods.good_id}}_1" onblur="save_if_print(goods.good_id,goods.if_print);">
+                                <option value="1" selected>是</option>
+                                <option value="0">否</option>
+                            </select>
+                            <button class="btn btn-info btn-xs" type="button" ng-click="cancle_if_print(goods.good_id,goods.if_print);">取消</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="save_if_print(goods.good_id,goods.if_print);">保存</button>
+                        </td>
+
+                        <td id="tuijian_{{goods.good_id}}" ng-dblclick="changeTuijian(goods.good_id,goods.tuijian);">{{goods.tuijian | tuijian}}</td>
+                        <td id="tuijian_{{goods.good_id}}_1" style="display:none;">
+                            <select id="tuijian_{{goods.good_id}}_select_1">
+                                <option value="1" selected>是</option>
+                                <option value="0">否</option>
+                            </select>
+                            <button class="btn btn-info btn-xs" type="button" ng-click="cancle_if_tuijian(goods.good_id,goods.tuijian);">取消</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="save_if_tuijian(goods.good_id,1);">保存</button>
+
+                        </td>
+                        <td id="tuijian_{{goods.good_id}}_0" style="display:none;">
+                            <select id="tuijian_{{goods.good_id}}_select_0">
+                                <option value="1">是</option>
+                                <option value="0" selected>否</option>
+                            </select>
+                            <button class="btn btn-info btn-xs" type="button" ng-click="cancle_if_tuijian(goods.good_id,goods.tuijian);">取消</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="save_if_tuijian(goods.good_id,0);">保存</button>
+
+                        </td>
+
+                        <td id="printer_{{goods.good_id}}" ng-dblclick="changePrinter(goods.good_id,goods.print_str)">{{goods.print_name_str}}</td>
+                        <td id="printer_modify_{{goods.good_id}}" style="display:none;">
+                            <div ng-repeat="printer in goods.printer_list">
+                                <input type="checkbox" value="{{printer.printer_no}}"  name="printer_check_{{goods.good_id}}"/>
+                                {{printer.printer_name}}
+                            </div>
+                                <button class="btn btn-info btn-xs" type="button" ng-click="cancle_modify_printer(goods.good_id);">取消</button>
+                            <button class="btn btn-danger btn-xs" type="button" ng-click="save_modify_printer(goods.good_id);">保存</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="14">
+                            <uib-pagination items-per-page="prePage" ng-change="select_goods()" total-items="totalItems" ng-model="currentPage" max-size="maxSize" first-text="第一页" previous-text="上一页" next-text="下一页" last-text="最后页" boundary-links="true" boundary-link-numbers="true"></uib-pagination>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="imgDiv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="check_title">{{img_name}}</h4>
+                </div>
+
+                <div class="modal-body row">
+                    <img id="goods_img" src=""/>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
