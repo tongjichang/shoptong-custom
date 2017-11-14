@@ -3,7 +3,7 @@ var app = angular.module('indexApp',['ngRoute','oc.lazyLoad']);
 
 //var base_url = "http://192.168.1.103:8080/heygay";//localhost 手机浏览器访问不了
 var shop_id = $("#shop_id").val();
-var table_id = $("#table_id").val();
+var table_id = "";
 
 app.config(['$httpProvider','$locationProvider','$routeProvider',function ($httpProvider,$locationProvider,$routeProvider) {
     $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';

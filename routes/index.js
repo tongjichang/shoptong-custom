@@ -20,7 +20,7 @@ router.get('/app', function(req, res, next) {
 //});
 
 router.get('/users', function(req, res, next) {
-    res.render('app/src/ui/person/view/index', { table_id: req.query.table_id,shop_id:req.query.shop_id });
+    res.render('app/src/ui/person/view/index', {shop_id:req.query.shop_id });
 });
 
 router.get('*', function(req, res, next) {

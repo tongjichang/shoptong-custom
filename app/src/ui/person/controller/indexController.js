@@ -31,17 +31,13 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
     $scope.init_shop_goods = function(){
         $http({
             method:"GET",
-            url:base_url+"/goods/selectCtgForShopPerson/"+shop_id+"/"+table_id,
+            url:base_url+"/goods/selectCtgForShopPerson/"+shop_id,
             data:null,
             cache:false,
         }).success(function (data,status) {
                 if(data.CODE=='1000'){
-                    $log.debug('查询到人员信息',data.DATA);
                     $scope.category_list = data.DATA;
-                    //console.log($scope.cateogry_list);
                     $scope.shop = data.SHOP;
-                    $scope.area = data.AREA;
-                    $scope.table = data.TABLE;
                     var myDate = new Date();
                     var begintime = $scope.shop.begin_time;
                     var endtime = $scope.shop.end_time;
@@ -93,13 +89,13 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
             });
     }
 
-    setInterval(function(){
-        $scope.init_shopping_cart();
+    //setInterval(function(){
+     //   $scope.init_shopping_cart();
         //$scope.init_shop_goods();
         //$scope.select_ctg($scope.dqzt);
-    },3000);
+    //},3000);
 
-    $scope.init_shopping_cart();
+    //$scope.init_shopping_cart();
 
 
 
