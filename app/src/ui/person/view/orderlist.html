@@ -7,8 +7,8 @@
     </div>
 </header>
 <!--内容区-->
-<article class="main-container" style="margin-top:50px;">
-
+<article class="main-container" style="margin-top:50px;" >
+    <div ng-repeat="order in order_list">
     <!--订单编号-->
     <div class="memberDetailheader line" style="margin-top: 0px;margin-bottom: 0px;">订单编号：{{order.order_num}}<br>
         <p>下单时间：{{order.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</p>
@@ -36,13 +36,12 @@
             <!--<p>下单时间：{{order_add.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</p>-->
             <div class="memberOrder-list line" style="position: relative;" >
                 <p style="float: left;margin-top: -49px;">
-                    <button ng-if="order.status==0" style="background-color: green;color:white;position: relative;">已下单</button>
-                    <button ng-if="order.status==-1" style="background-color: orange;color:white;position: relative;">服务员未确认,请稍后</button>
+                    <button style="background-color: green;color:white;position: relative;">已成功下单</button>
                 </p>
             </div>
         </div>
     </div>
-
+    </div>
 
 </article>
     <article class="main-container" style="margin-top:1px;" ng-if="order_add != null">
@@ -74,8 +73,7 @@
                 <!--<p>下单时间：{{order_add.create_time | date:'yyyy-MM-dd HH:mm:ss' }}</p>-->
                 <div class="memberOrder-list line" style="position: relative;">
                     <p style="float: left;margin-top: -49px;">
-                        <button ng-if="order_add.status==0" style="background-color: green;color:white;position: relative;">已下单</button>
-                        <button ng-if="order_add.status==-1" style="background-color: orange;color:white;position: relative;">服务员未确认,请稍后</button>
+                        <button style="background-color: green;color:white;position: relative;">已成功下单</button>
                     </p>
                 </div>
             </div>

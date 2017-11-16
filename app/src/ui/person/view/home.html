@@ -5,7 +5,7 @@
     <div style="height:55px; background: rgba(0,172,152,.95);position: relative;color:#fff">
         <h1 style="position: absolute;overflow: hidden;width: 60px;height: 60px;left:10px;top:5px;"><a href="#/shopinfo"><img src="http://47.92.66.33:8080{{shop.icon}}" height="40" width="60"></a></h1>
         <h1  style="font-size:17px;margin-left: 80px;overflow: hidden;padding-top: 5px" >
-             <div style="height:25px;overflow: hidden " >{{shop.shop_name}}({{area.area_name}}-{{table.table_name}})</div>
+             <div style="height:25px;overflow: hidden " >{{shop.shop_name}}</div>
              <marquee style="font-size:14px; ">&nbsp营业时间：{{shop.begin_time}}点至{{shop.end_time}}点&nbsp&nbsp&nbsp公告：{{shop.notice}}</marquee>
         </h1>
     </div>
@@ -63,9 +63,9 @@
                     </div>
                 </a>
 
-                <a ng-if="goods.in_cart_num==0" href="javascript:void(0);" ng-click="addCart(goods.good_id);" class="list-cart"><i class="icon-cartadd"></i></a>
+                <a ng-if="goods.in_cart_num==0" href="javascript:void(0);" ng-click="addCartHtml(goods.good_id);" class="list-cart"><i class="icon-cartadd"></i></a>
 
-                <div ng-if="goods.in_cart_num>0" class="D-BuyNum"><button ng-click="modifyCart(goods.good_id,cart.cart_id);"><i class="icon-reduce"></i></button><input type="text" class="line" value="{{goods.in_cart_num}}"><button ng-click="addCart(goods.good_id);"><i class="icon-plus"></i></button></div>
+                <div ng-if="goods.in_cart_num>0" class="D-BuyNum"><button ng-click="modifyCart(goods.good_id,cart.cart_id);"><i class="icon-reduce"></i></button><input type="text" class="line" value="{{goods.in_cart_num}}"><button ng-click="addCartHtml(goods.good_id);"><i class="icon-plus"></i></button></div>
             </li>
             <a id="{{category.category_id}}_anchor" class="line1"></a>
             <li class="line" ng-repeat="goods in category.goods_list | filter:{tuijian:0}" >
@@ -78,9 +78,9 @@
                     </div>
                 </a>
 
-                <a ng-if="goods.in_cart_num==0" href="javascript:void(0);" ng-click="addCart(goods.good_id);" class="list-cart"><i class="icon-cartadd"></i></a>
+                <a ng-if="goods.in_cart_num==0" href="javascript:void(0);" ng-click="addCartHtml(goods.good_id);" class="list-cart"><i class="icon-cartadd"></i></a>
 
-                <div ng-if="goods.in_cart_num>0" class="D-BuyNum"><button ng-click="modifyCart(goods.good_id,cart.cart_id);"><i class="icon-reduce"></i></button><input type="text" class="line" value="{{goods.in_cart_num}}"><button ng-click="addCart(goods.good_id);"><i class="icon-plus"></i></button></div>
+                <div ng-if="goods.in_cart_num>0" class="D-BuyNum"><button ng-click="modifyCart(goods.good_id,cart.cart_id);"><i class="icon-reduce"></i></button><input type="text" class="line" value="{{goods.in_cart_num}}"><button ng-click="addCartHtml(goods.good_id);"><i class="icon-plus"></i></button></div>
             </li>
         </ol>
         <br><br>
@@ -98,7 +98,7 @@
             <ul class="line-li">
                 <li ng-repeat="goods in cart.goods_set">
                     <img src="http://47.92.66.33:8080{{goods.img_url}}" alt=""><p>{{goods.good_name}}</p><span>¥{{goods.good_total_price}}</span>
-                    <div class="D-BuyNum"><button ng-click="modifyCart(goods.good_id,cart.cart_id);"><i class="icon-reduce"></i></button><input type="text" class="line" value="{{goods.good_num}}"><button ng-click="addCart(goods.good_id);"><i class="icon-plus"></i></button></div>
+                    <div class="D-BuyNum"><button ng-click="modifyCart(goods.good_id,cart.cart_id);"><i class="icon-reduce"></i></button><input type="text" class="line" value="{{goods.good_num}}"><button ng-click="addCartHtml(goods.good_id);"><i class="icon-plus"></i></button></div>
                 </li>
             </ul>
         </div>
@@ -118,8 +118,8 @@
 
             <!--标题-->
             <div class="D-head line">
-                <h2>请填写用餐信息</h2>
-                <font>确认下单后，服务员会跟您当面确认订单内容</font>
+                <h2>请填写配送信息</h2>
+                <font>确认下单后，超市会进行配送</font>
                 <br>
             </div>
 
@@ -134,14 +134,10 @@
                 </div>
 
                 <div class="order-Remark line">
-                    <textarea class="line-ora" id="people_count" maxlength="2" placeholder="用餐人数" style="width:200px;height:20px;"></textarea>
-                    <textarea class="line-ora" id="user_phone" maxlength="11" placeholder="手机号码" style="width:200px;height:20px;"></textarea>
+                    <textarea class="line-ora" id="address" maxlength="50" placeholder="送货地址,如：金地锦城17#1-X-X" value="{{address}}"></textarea>
                     <textarea class="line-ora" id="comments" maxlength="50" placeholder="请输入备注，限50个字以内"></textarea>
-                    <input type="hidden" id="way" value="1"/>
-                    <ol class="FilterContentList">
-                        <li><span id="way_1" ng-click="change_way(1);" class="select icon-correct">堂食</span></li>
-                        <li><span id="way_2" ng-click="change_way(2);">打包</span></li>
-                    </ol>
+                    <textarea class="line-ora" id="user_phone" maxlength="11" placeholder="手机号码" style="width:200px;height:20px;" value="{{user_phone}}"></textarea>
+                    <button id="valid_btn" ng-show="user_session.length!=11">发送验证码</button>
                 </div>
                 <br>
                 <br>
@@ -149,7 +145,12 @@
                 <br>
                 <br>
                 <br>
-
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
             </div>
 
         </div>
@@ -167,8 +168,8 @@
 
 
     <a href="javascript:void(0)" id="orderCart"><i class="icon-cart" ><span ng-if="cart!=null">{{cart.total_num}}</span></i>购物车</a>
-    <a href="#/orderlist"><i class="icon-allorders"></i>订单</a>
-    <a href="#/servicelist"><i class="icon-star"></i>服务</a>
+    <a href="#/orderlist"><i class="icon-allorders"></i>我的订单</a>
+    <!--<a href="#/servicelist"><i class="icon-star"></i>服务</a>-->
     <!--<a href="member.html"><i class="icon-head"></i>服务</a>-->
     <!--<a><button ng-click="confirm_order(cart.cart_id);">下单</button></a>-->
     <a id="submit_cart"><button>下单</button></a>

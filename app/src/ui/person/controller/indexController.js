@@ -25,13 +25,17 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
 
     $scope.rysj = true;
     $scope.dqzt = 'tuijian_ctg';
+    $scope.address = localStorage.getItem("address");
+    $scope.user_phone = localStorage.getItem("user_phone");
+    $scope.user_session = localStorage.getItem("user_phone");
     /**
      * 加载店铺、商品数据
      */
     $scope.init_shop_goods = function(){
+        var cart_id = localStorage.getItem("cart_id");
         $http({
             method:"GET",
-            url:base_url+"/goods/selectCtgForShopPerson/"+shop_id,
+            url:base_url+"/goods/selectCtgForShopPerson/"+shop_id+"/"+cart_id,
             data:null,
             cache:false,
         }).success(function (data,status) {
@@ -61,16 +65,19 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
      * 加载购物车
      */
     $scope.init_shopping_cart = function(){
+        var cart_id = localStorage.getItem("cart_id");
         $http({
             method:"POST",
             url:base_url+"/cart/getCart",
             data:{
-                shop_id:shop_id,
-                table_id:table_id
+                cart_id:cart_id
             },
             cache:false,
         }).success(function (data,status) {
             if(data.CODE=='1000'){
+                if(data.DATA==undefined){
+                    localStorage.removeItem("cart_id");
+                }
                 $scope.cart = data.DATA;
                 if($scope.cart==null){
                     $("#submit_cart").hide();
@@ -89,13 +96,26 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
             });
     }
 
+    $scope.init_shopping_cart_html = function(){
+        $scope.cart = JSON.parse(sessionStorage.getItem("shoppingcart"));
+        console.log($scope.cart);
+        if($scope.cart==null){
+            $("#submit_cart").hide();
+            $("#submit_cart_unbind").show();
+        }else{
+            $("#submit_cart").show();
+            $("#submit_cart_unbind").hide();
+        }
+    }
+
+
     //setInterval(function(){
      //   $scope.init_shopping_cart();
         //$scope.init_shop_goods();
         //$scope.select_ctg($scope.dqzt);
     //},3000);
 
-    //$scope.init_shopping_cart();
+    $scope.init_shopping_cart();
 
 
 
@@ -138,24 +158,20 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
      */
     $scope.confirm_order = function(cart_id){
         var re = /^[1-9]+[0-9]*]*$/;
-        var people_count = $("#people_count").val();
+        var address = $("#address").val();
         var comments = $("#comments").val();
         var user_phone = $("#user_phone").val();
         var way = $("#way").val();
-        // if(people_count==''){
-        //     $("#people_count").focus();
-        //     alert("请输入就餐人数");
-        //     return;
-        // }
-        if(people_count!=''){
-            if (!re.test(people_count)) {
-                $("#people_count").val("");
-                $("#people_count").focus();
-                alert("用餐人数请输入数字");
-                return;
-            }
-        }else{
-            people_count = 0;
+         if(address==''){
+             $("#address").focus();
+             alert("请输入送货地址");
+             return;
+         }
+
+        if(user_phone==''){
+            $("#user_phone").focus();
+            alert("请输入手机号码");
+            return;
         }
 
         if(user_phone!=''){
@@ -166,24 +182,108 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
                 return;
             }
         }
+
+        var user_session = localStorage.getItem("session_id");
+        if(undefined==user_session||""==user_session||null==user_session){
+            $("#valid_btn").show();
+            //校验手机号是否注册用户
+            $http({
+                method:"POST",
+                url:base_url+"/userservice/checkUser",
+                data:{
+                    username:user_phone
+                }
+            }).success(function (data,status) {
+                if(data.CODE=='1000'){
+                    if(data.DATA=="0"){//不存在用户，注册一个
+                        $scope.registe_phone(user_phone);
+                    }
+                    localStorage.setItem("session_id",user_phone);
+                    //下单
+                    $http({
+                        method:"POST",
+                        url:base_url+"/userorder/saveOrder",
+                        data:{
+                            cart_id:cart_id,
+                            address:address,
+                            user_phone:user_phone,
+                            comments:comments,
+                            user_id:user_phone
+                        },
+                        cache:false,
+                    }).success(function (data,status) {
+                        if(data.CODE=='1000'){
+                            $scope.init_shopping_cart();
+                            $scope.init_shop_goods();
+                            shop_alert_box_mobile('提示',"下单成功，超市收到订单后会进行配送");
+                            $("#submit_cart").click();
+                            close_background();
+                            localStorage.removeItem("cart_id");
+                            localStorage.setItem("address",address);
+                            localStorage.setItem("user_phone",user_phone);
+                        }else{
+                            shop_alert_box_mobile('提示',data.MESSAGE);
+                        }
+                    })
+                        .error(function (response,status,header) {
+                            shop_alert_box_mobile('提示','数据加载异常'+response);
+                        });
+
+                }else{
+                    shop_alert_box_mobile('提示',data.MESSAGE);
+                }
+            })
+                .error(function (response,status,header) {
+                    shop_alert_box_mobile('提示','数据加载异常'+response);
+                });
+        }else{
+            $("#valid_btn").hide();
+            //下单
+            $http({
+                method:"POST",
+                url:base_url+"/userorder/saveOrder",
+                data:{
+                    cart_id:cart_id,
+                    address:address,
+                    user_phone:user_phone,
+                    comments:comments,
+                    user_id:user_session
+                },
+                cache:false,
+            }).success(function (data,status) {
+                if(data.CODE=='1000'){
+                    $scope.init_shopping_cart();
+                    $scope.init_shop_goods();
+                    shop_alert_box_mobile('提示',"下单成功，超市收到订单后会进行配送");
+                    $("#submit_cart").click();
+                    close_background();
+                    localStorage.removeItem("cart_id");
+                    localStorage.setItem("address",address);
+                    localStorage.setItem("user_phone",user_phone);
+                }else{
+                    shop_alert_box_mobile('提示',data.MESSAGE);
+                }
+            })
+                .error(function (response,status,header) {
+                    shop_alert_box_mobile('提示','数据加载异常'+response);
+                });
+        }
+        $("#comments").val("");
+
+
+
+
+    }
+
+    $scope.registe_phone = function(phone_no){
         $http({
             method:"POST",
-            url:base_url+"/userorder/saveOrder",
+            url:base_url+"/userservice/registePhone",
             data:{
-                cart_id:cart_id,
-                people_count:people_count,
-                user_phone:user_phone,
-                comments:comments,
-                way:way
-            },
-            cache:false,
+                phone_no:phone_no
+            }
         }).success(function (data,status) {
             if(data.CODE=='1000'){
-                $scope.init_shopping_cart();
-                $scope.init_shop_goods();
-                shop_alert_box_mobile('提示',"下单成功，稍后服务员会过来确认");
-                $("#submit_cart").click();
-                close_background();
             }else{
                 shop_alert_box_mobile('提示',data.MESSAGE);
             }
@@ -224,6 +324,35 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
             });
     }
 
+    /**
+     * 添加购物车--客户端存储
+     * @param good_id
+     */
+    $scope.addCartHtml = function(goods_id){
+        var cart_id = localStorage.getItem("cart_id");
+        $http({
+            method:"POST",
+            url:base_url+"/cart/addCart",
+            data:{
+                cart_id:cart_id,
+                good_id:goods_id
+            },
+            cache:false,
+        }).success(function (data,status) {
+            if(data.CODE=='1000'){
+                if(null==cart_id){
+                    localStorage.setItem("cart_id",data.CART_ID);
+                }
+                $scope.init_shopping_cart();
+                $scope.init_shop_goods();
+            }else{
+                shop_alert_box_mobile('提示',data.MESSAGE);
+            }
+        })
+            .error(function (response,status,header) {
+                shop_alert_box_mobile('提示','数据加载异常'+response);
+            });
+    }
 
     /**
      * 清空购物车
@@ -238,6 +367,7 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
             cache:false,
         }).success(function (data,status) {
             if(data.CODE=='1000'){
+                localStorage.removeItem("cart_id");
                 $scope.init_shopping_cart();
                 $scope.init_shop_goods();
                 $("html,body").removeAttr("style");
@@ -307,6 +437,8 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
 });
 
 app.controller("orderController",function($scope,$http){
+    var session_id = localStorage.getItem("session_id");
+
     close_background();
     /**
      * 查询桌台订单
@@ -316,13 +448,12 @@ app.controller("orderController",function($scope,$http){
             method:"POST",
             url:base_url+"/userorder/getOrder",
             data:{
-                table_id:table_id
+                phone:session_id
             },
             cache:false,
         }).success(function (data,status) {
             if(data.CODE=='1000'){
-                $scope.order = data.DATA;
-                $scope.order_add = data.DATA_ADD;
+                $scope.order_list = data.DATA;
             }else{
                 shop_alert_box_mobile('提示',data.MESSAGE);
             }
@@ -337,6 +468,7 @@ app.controller("orderController",function($scope,$http){
 });
 
 app.controller("shopinfoController",function($scope,$http,$ocLazyLoad){
+    var cart_id = localStorage.getItem("cart_id");
 
     /**
      * 加载店铺、商品数据
@@ -344,7 +476,7 @@ app.controller("shopinfoController",function($scope,$http,$ocLazyLoad){
     $scope.init_shop_goods = function(){
         $http({
             method:"GET",
-            url:base_url+"/goods/selectCtgForShopPerson/"+shop_id+"/"+table_id,
+            url:base_url+"/goods/selectCtgForShopPerson/"+shop_id+"/"+cart_id,
             data:null,
             cache:false,
         }).success(function (data,status) {
