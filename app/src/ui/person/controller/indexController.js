@@ -208,7 +208,8 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
                             address:address,
                             user_phone:user_phone,
                             comments:comments,
-                            user_id:user_phone
+                            user_id:user_phone,
+                            shop_id:shop_id
                         },
                         cache:false,
                     }).success(function (data,status) {
@@ -247,7 +248,8 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
                     address:address,
                     user_phone:user_phone,
                     comments:comments,
-                    user_id:user_session
+                    user_id:user_session,
+                    shop_id:shop_id
                 },
                 cache:false,
             }).success(function (data,status) {
