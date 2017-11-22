@@ -476,7 +476,7 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log,$locatio
             cache:false,
         }).success(function (data,status) {
             if(data.CODE=='1000'){
-                alert("验证码已发送");
+                alert("验证码已发送,5分钟内有效");
             }else{
                 shop_alert_box_mobile('提示',data.MESSAGE);
             }
