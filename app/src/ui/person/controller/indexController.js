@@ -4,7 +4,9 @@
 'use strict';
 
 
-app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
+app.controller("indexController",function($scope,$http,$ocLazyLoad,$log,$location,$route){
+
+    $scope.validate = "0";
 
     var load_file = [
         "app-template/js/common.js",
@@ -183,9 +185,17 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
             }
         }
 
+        $scope.check_code();
+        if($scope.validate!="1"){
+            alert("验证码错误");
+            return;
+        }
+
+
         var user_session = localStorage.getItem("session_id");
         if(undefined==user_session||""==user_session||null==user_session){
             $("#valid_btn").show();
+            $("#valid_code").show();
             //校验手机号是否注册用户
             $http({
                 method:"POST",
@@ -239,6 +249,7 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
                 });
         }else{
             $("#valid_btn").hide();
+            $("#valid_code").hide();
             //下单
             $http({
                 method:"POST",
@@ -271,9 +282,10 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
                 });
         }
         $("#comments").val("");
-
-
-
+        $("#valid_code").val("");
+        $location.path("/index");
+        $("#valid_btn").hide();
+        $("#valid_code").hide();
 
     }
 
@@ -434,6 +446,100 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log){
         $("#way").val(way);
     }
 
+    /**
+     * 发送验证码
+     */
+    $scope.send_code = function(){
+        var re = /^[1-9]+[0-9]*]*$/;
+        var user_phone = $("#user_phone").val();
+        if(user_phone==''){
+            $("#user_phone").focus();
+            alert("请输入手机号码");
+            return;
+        }
+
+        if(user_phone!=''){
+            if (!re.test(user_phone)||user_phone.length!=11) {
+                $("#user_phone").val("");
+                $("#user_phone").focus();
+                alert("手机号码请输入11位数字");
+                return;
+            }
+        }
+
+        $http({
+            method:"POST",
+            url:base_url+"/userservice/sendCode",
+            data:{
+                phone_no:user_phone
+            },
+            cache:false,
+        }).success(function (data,status) {
+            if(data.CODE=='1000'){
+                alert("验证码已发送");
+            }else{
+                shop_alert_box_mobile('提示',data.MESSAGE);
+            }
+        })
+            .error(function (response,status,header) {
+                shop_alert_box_mobile('提示','数据加载异常'+response);
+            });
+
+        $scope.code_time();
+    }
+
+    var wait=60;
+    $scope.code_time = function(){
+        var o = $("#valid_btn");
+        if (wait == 0) {
+            o.attr("disabled",false);
+            o.html("免费获取验证码");
+            wait = 60;
+        } else {
+            o.html("重新发送(" + wait + ")");
+            wait--;
+            o.attr("disabled", true);
+            setTimeout(function() {
+                    $scope.code_time();
+                },
+                1000);
+        }
+    }
+
+
+    /**
+     * 校验验证码
+     */
+    $scope.check_code = function(){
+        var user_phone = $("#user_phone").val();
+        var code = $("#valid_code").val();
+        $http({
+            method:"POST",
+            url:base_url+"/userservice/checkCode",
+            data:{
+                phone:user_phone,
+                valid_code:code
+            },
+            cache:false,
+        }).success(function (data,status) {
+            if(data.CODE=='1000'){
+                $scope.validate = "1";
+            }else{
+                //shop_alert_box_mobile('提示',data.MESSAGE);
+            }
+        })
+            .error(function (response,status,header) {
+                //shop_alert_box_mobile('提示','数据加载异常'+response);
+            });
+    }
+
+    $scope.code_change = function(){
+        var code = $("#valid_code").val();
+        if(code.length==4){
+            $scope.check_code();
+        }
+    }
+
 
 
 });
@@ -512,3 +618,5 @@ var close_background = function(){
     $("#cartContent").hide().removeClass("fadeOutBottom100").removeClass("fadeOutBottom20");
     $("#cartLayer").remove();
 }
+
+

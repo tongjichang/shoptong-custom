@@ -137,7 +137,8 @@
                     <textarea class="line-ora" id="address" maxlength="50" placeholder="送货地址,如：金地锦城17#1-X-X" value="{{address}}"></textarea>
                     <textarea class="line-ora" id="comments" maxlength="50" placeholder="请输入备注，限50个字以内"></textarea>
                     <textarea class="line-ora" id="user_phone" maxlength="11" placeholder="手机号码" style="width:200px;height:20px;" value="{{user_phone}}"></textarea>
-                    <button id="valid_btn" ng-show="user_session.length!=11">发送验证码</button>
+                    <button  id="valid_btn" ng-model="valid_btn" ng-click="send_code();" ng-show="user_session.length!=11" style="width:100px;height:30px;">免费获取验证码</button>
+                    <textarea class="line-ora" id="valid_code" ng-show="user_session.length!=11" ng-model="valid_code" ng-change="code_change();" maxlength="4" placeholder="验证码" style="width:50px;height:20px;" value=""></textarea>
                 </div>
                 <br>
                 <br>
