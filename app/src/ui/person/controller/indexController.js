@@ -227,6 +227,7 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log,$locatio
                             $scope.init_shopping_cart();
                             $scope.init_shop_goods();
                             shop_alert_box_mobile('提示',"下单成功，超市收到订单后会进行配送");
+                            $scope.validate = "1";
                             $("#submit_cart").click();
                             close_background();
                             localStorage.removeItem("cart_id");
@@ -268,6 +269,7 @@ app.controller("indexController",function($scope,$http,$ocLazyLoad,$log,$locatio
                     $scope.init_shopping_cart();
                     $scope.init_shop_goods();
                     shop_alert_box_mobile('提示',"下单成功，超市收到订单后会进行配送");
+                    $scope.validate = "1";
                     $("#submit_cart").click();
                     close_background();
                     localStorage.removeItem("cart_id");
