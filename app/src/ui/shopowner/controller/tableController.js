@@ -514,20 +514,15 @@ app.controller("qrCodeController", function ($scope, $http) {
      */
     $scope.list_table = function () {
         $http({
-            method: "POST",
-            url: base_url + "/tableservice/getTableInfo",
-            data: {
-                shopid: shopid
-            }
+            method: "GET",
+            url: base_url + "/shop/getShopInfo/"+shopid,
+            data: null
 
         })
             .success(function (data, status) {
                 if (data.CODE == '1000') {
-                    $scope.areas = data.DATA;
-                    $scope.img_url = img_url;
-                }else if(data.CODE=='1001'){
-
-                } else if (data.CODE == '1003') {
+                    $scope.shop = data.DATA;
+                }else if (data.CODE == '1003') {
                     show_alert_box('提示', data.MESSAGE);
                     $window.location.href = "/";
                 } else {
